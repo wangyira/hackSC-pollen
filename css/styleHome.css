@@ -1,0 +1,104 @@
+.backImage{
+    
+    background-color: white;
+}
+h3 {
+    color: black;
+    font-family: Helvetica;
+}
+.lowercase{
+    text-transform: lowercase;
+    color: blue;
+    text-align: left;
+    font-family: Helvetica;
+    
+}
+h4{
+ color:blue;
+ text-align: left;
+ text-transform: lowercase;
+ font-family: Helvetica;
+}
+.info{
+    list-style-type: none;
+    color: black;
+    background-color: ivory;
+}
+.store{
+    background-color: ivory;
+    border-radius: 100px;
+}
+h2{
+    margin-top: -60px;
+    color: yellow;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8px;
+  margin-bottom: -60px;
+}
+li{
+    color: blue;
+    font-family: Helvetica;
+}
+img{
+
+    margin-top:-5px;
+    
+}
+hr {
+    height: 4px;
+    /* Set the hr color */
+    color: #333; /* old IE */
+    background-color: #333; /* Modern Browsers */
+}
+.head{
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+    color: #333;
+    
+}
+#rating-good{
+    color: green;
+}
+#rating-okay{
+    color:orange;
+}
+#rating-bad{
+    color: red;
+}
+
+.header {
+  padding: 0px;
+  text-align: left;
+  background: powderblue;
+  color: blue;
+  font-size: 10px;
+  margin-top: -80px;
+  margin-right: -70px;
+  margin-left: -70px;
+  
+}
+.header .headText {
+    margin-bottom: 300 px;
+    text-align: center;
+    color: yellow;
+    font-size:130px
+}
+.header .headLink {
+    font-size: 15px;
+    color:white;
+    margin-bottom: -60px
+    
+}
+#myInput{
+    align: center;
+    font-size: 30px;
+
+}
+body {
+  font-family: Helvetica;
+}

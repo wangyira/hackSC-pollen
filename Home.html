@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="placeLogo.ico" />
+    <script src="https://kit.fontawesome.com/15d341663e.js" crossorigin="anonymous"></script>
+    <head>
+    <style>
+    </style>
+    <body class = "backImage">
+    <link href="css/styleHome.css" type="text/css" rel="stylesheet">
+    
+	<title class = "title lowercase">Pollen</title>
+    
+</head>
+<body id = "bod">
+    <div class="header">
+      <h1 class = "headText" >pollen
+          <p class = "headLink" > Rate    Sort              Help  </pre><br><br></p>
+          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search a business..." title="Type in a name" >
+    </div>
+    <!--
+	<h1 class = "lowercase" >Pollen</h1>
+    <h2 style= "><u>Rate <u> <u>Help<u></h2>
+	<h4> The coolest thing ever blah blah <3 </h4>
+    <img class = "center" style="width:250px;height:250px;" src="placeLogo.png" align = center >
+    -->
+
+
+
+
+    <script>
+    function myFunction() {
+        var input, filter, ul, li, a, i, txtValue, j;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("bod");
+        li = document.getElementsByTagName("h3");
+        di = document.getElementsByClassName("store")
+        console.log(input,filter)
+        console.log(li,li.outerText)
+        for (i = 0; i < li.length; i++) {
+            a = li[i].innerText.trim();
+            console.log(a)
+            // txtValue = a.textContent || a.innerText;
+            if (a.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+                di[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+                di[i].style.display = "none"
+            }
+        }
+    }
+    </script>
+
+
+  
+
+ <div class = "store">
+    <h3 id = "h3">Trader Joe's</h3>
+<img style = "padding: 10px" src="Images/traderJoes.jpg" align="left" VSPACE=”50” width="250" height="250" >
+    <ul>
+      <li class="info">Grocery Store</li>
+      <li class="info"><a href="https://www.google.com/maps/dir//Trader+Joe's,+3131+S+Hoover+St+Ste+1920,+Los+Angeles,+CA+90089/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x80c2c7e590c9b1d3:0x29839d05bb0c4e08?sa=X&ved=2ahUKEwjVrYXU-vjuAhVjdc0KHSA5BGQQ48ADMAB6BAgEECs">0.2 Miles Away</a></li>
+      <li class="info">Current Covid Rating:
+            <i id="rating-okay" class="fas fa-circle"></i>
+            <i id="rating-okay" class="fas fa-circle"></i>
+            <i id="rating-okay" class="fas fa-circle"></i>
+            <i id="rating-okay" class="far fa-circle"></i>
+            <i id="rating-okay" class="far fa-circle"></i></li>
+      <li class="info">Current Busy Rating:
+          <i id="rating-bad" class="fas fa-circle"></i>
+          <i id="rating-bad" class="fas fa-circle"></i>
+          <i id="rating-bad" class="fas fa-circle"></i>
+          <i id="rating-bad" class="fas fa-circle"></i>
+          <i id="rating-bad" class="fas fa-circle"></i> </li>
+      <li class="info"><a href="https://www.google.com/maps/dir//Trader+Joe's,+3131+S+Hoover+St+Ste+1920,+Los+Angeles,+CA+90089/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x80c2c7e590c9b1d3:0x29839d05bb0c4e08?sa=X&ved=2ahUKEwjVrYXU-vjuAhVjdc0KHSA5BGQQ48ADMAB6BAgEECs">See Details</a></li>
+    </ul>
+    </div>
+ <div class = "store">
+ <br>
+    <h3>Target</h3>
+        <img style = "padding: 10px" src="Images/target.jpg" align="left" VSPACE=”50” width="250" height="250" >
+    <ul style = "list-style-type: none">
+      <li class="info">Department Store</li>
+      <li class="info"> <a href="https://www.google.com/maps/dir/34.0262912,-118.2892032/Target,+3131+S+Hoover+St+STE+1910,+Los+Angeles,+CA+90089/@34.0261685,-118.2953348,15z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x80c2c808a44e8137:0xafba0072f4475ded!2m2!1d-118.2841969!2d34.0259722">0.2 Miles Away</a></li>
+      <li class="info">Current Covid Rating:
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="fas fa-circle"></i></li>
+      <li class="info">Current Busy Rating:
+          <i id="rating-okay" class="fas fa-circle"></i>
+          <i id="rating-okay" class="fas fa-circle"></i>
+          <i id="rating-okay" class="fas fa-circle"></i>
+          <i id="rating-okay" class="far fa-circle"></i>
+          <i id="rating-okay" class="far fa-circle"></i> </li>
+      <li class="info"><a href="https://www.google.com/maps/dir/34.0262912,-118.2892032/Target,+3131+S+Hoover+St+STE+1910,+Los+Angeles,+CA+90089/@34.0261685,-118.2953348,15z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x80c2c808a44e8137:0xafba0072f4475ded!2m2!1d-118.2841969!2d34.0259722">See Details</a></li>
+    </ul>
+    </div>
+    
+    <div class = "store">
+    <br>
+    <h3>Thai by Trio</h3>
+    <img style = "padding: 10px" src="Images/thaiTrio.jpg" align="left" VSPACE=”50” width="250" height="250" >
+    <ul style = "list-style-type: none">
+      <li class="info">Thai Restaurant</li>
+      <li class="info"><a href="https://www.google.com/maps/dir/34.0302012,-118.2875473/Ono+Hawaiian+BBQ,+3010+S+Figueroa+St,+Los+Angeles,+CA+90007/@34.0211136,-118.2957656,15z/data=!4m9!4m8!1m0!1m5!1m1!1s0x80c2c7e73c5de66d:0xbc9165cb15504db8!2m2!1d-118.2780168!2d34.0245359!3e0">0.8 Miles Away</a></li>
+      <li class="info">Current Covid Rating:
+          <i id="rating-bad" class="fas fa-circle"></i>
+          <i id="rating-bad" class="fas fa-circle"></i>
+          <i id="rating-bad" class="far fa-circle"></i>
+          <i id="rating-bad" class="far fa-circle"></i>
+          <i id="rating-bad" class="far fa-circle"></i></li></li>
+      <li class="info">Current Busy Rating:
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="far fa-circle"></i>
+          <i id="rating-good" class="far fa-circle"></i>
+          <i id="rating-good" class="far fa-circle"></i></li>
+      
+      <li class="info"><a href="https://www.google.com/maps/dir/34.0302012,-118.2875473/Ono+Hawaiian+BBQ,+3010+S+Figueroa+St,+Los+Angeles,+CA+90007/@34.0211136,-118.2957656,15z/data=!4m9!4m8!1m0!1m5!1m1!1s0x80c2c7e73c5de66d:0xbc9165cb15504db8!2m2!1d-118.2780168!2d34.0245359!3e0">See Details</a></li>
+    </ul>
+    </div>
+    
+    
+    <div class = "store">
+    <br>
+    <h3>True Value</h3>
+    <img  style = "padding: 10px" src="Images/trueValue.png" align="left" VSPACE=”50” width="250" height="250" >
+    <ul style = "list-style-type: none">
+      <li class="info">Hardware Store </li>
+      <li class="info"><a href="https://www.google.com/maps/dir/34.0302012,-118.2875473/Ono+Hawaiian+BBQ,+3010+S+Figueroa+St,+Los+Angeles,+CA+90007/@34.0211136,-118.2957656,15z/data=!4m9!4m8!1m0!1m5!1m1!1s0x80c2c7e73c5de66d:0xbc9165cb15504db8!2m2!1d-118.2780168!2d34.0245359!3e0">0.9 Miles Away</a></li>
+      <li class="info">Current Covid Rating:
+          <i id="rating-okay" class="fas fa-circle"></i>
+          <i id="rating-okay" class="fas fa-circle"></i>
+          <i id="rating-okay" class="fas fa-circle"></i>
+          <i id="rating-okay" class="far fa-circle"></i>
+          <i id="rating-okay" class="far fa-circle"></i></li>
+      <li class="info">Current Busy Rating:
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="far fa-circle"></i>
+          <i id="rating-good" class="far fa-circle"></i>
+          <i id="rating-good" class="far fa-circle"></i>
+          <i id="rating-good" class="far fa-circle"></i></li>
+      <li class="info"><a href="https://www.google.com/maps/dir/34.0302012,-118.2875473/Ono+Hawaiian+BBQ,+3010+S+Figueroa+St,+Los+Angeles,+CA+90007/@34.0211136,-118.2957656,15z/data=!4m9!4m8!1m0!1m5!1m1!1s0x80c2c7e73c5de66d:0xbc9165cb15504db8!2m2!1d-118.2780168!2d34.0245359!3e0">See Details</a></li>
+    </ul>
+    </div>
+    
+    <div class = "store">
+    <br>
+    <h3>Panda Express</h3>
+        <img style = "padding: 10px" src="Images/panda.jpg" align="left" VSPACE=”50” width="250" height="250">
+    <ul style = "list-style-type: none">
+      <li class="info">Chinese Restaurant</li>
+      <li class="info" ><a href="https://www.google.com/maps/dir//Panda+Express,+2828+S+Figueroa+St,+Los+Angeles,+CA+90007/@34.0301378,-118.2785608,14.91z/data=!4m9!4m8!1m0!1m5!1m1!1s0x80c2c7e77393fe39:0xfe826e249082e38d!2m2!1d-118.2772116!2d34.0258636!3e0">1.2 Miles Away</a></li>
+      <li class="info">Current Covid Rating:
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="fas fa-circle"></i>
+          <i id="rating-good" class="fas fa-circle"></i></li>
+      <li class="info">Current Busy Rating:
+          <i id="rating-okay" class="fas fa-circle"></i>
+          <i id="rating-okay" class="fas fa-circle"></i>
+          <i id="rating-okay" class="fas fa-circle"></i>
+          <i id="rating-okay" class="far fa-circle"></i>
+          <i id="rating-okay" class="far fa-circle"></i></li>
+      <li class="info"><a href="https://www.google.com/maps/dir/34.0302012,-118.2875473/Ono+Hawaiian+BBQ,+3010+S+Figueroa+St,+Los+Angeles,+CA+90007/@34.0211136,-118.2957656,15z/data=!4m9!4m8!1m0!1m5!1m1!1s0x80c2c7e73c5de66d:0xbc9165cb15504db8!2m2!1d-118.2780168!2d34.0245359!3e0">See Details</a></li>
+    </ul>
+    </div>
+</body>
+</html>
