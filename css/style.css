@@ -63,8 +63,38 @@ hr {
     background-repeat: no-repeat;
 }
 
+#uploadimage{
+    font-size:30px;
+    -webkit-appearance: none;
+    color: white;
+    background-color: #9BC1BC;
+    height: 60px;
+    width: 30vw;
+    border: solid 1px white;
+    border-radius: 30px;
+    margin-top: 1.5vh;
+}
 
+.team-description {
+    margin: 10px;
+    padding: 10px;
+}
+.team-images{
+    margin-top: 60px;
+}
+.member {
+    height: 300px;
+}
 
+.description-text {
+    font-size: 16px;
+    font: verdana;
+    font-weight: 500;
+    color: white;
+    background-color: rgba(61, 119, 119, 0.671);
+    padding: 30px;
+    border-radius: 30px;
+}
 
 h1 {
     text-align: center;
@@ -98,7 +128,7 @@ h3 {
     font-size: 25px;
 }
 
-button {
+.button {
     -webkit-appearance: none;
     color: white;
     background-color: #9BC1BC;
@@ -169,10 +199,11 @@ button {
 
 .gallery-highlight {
     display: flex;
-    width: 80vw;
-    height: auto;
     margin-top: 3vh;
     margin-bottom: 0vh;
+    width: 80vw;
+    height: 500px;
+    object-fit: cover;
 }
 
 
