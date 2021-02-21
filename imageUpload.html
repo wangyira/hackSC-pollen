@@ -1,0 +1,146 @@
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<html>
+	<head><title>Save and Load Image from Firebase Storage JS</title></head>
+
+	<body>
+		<style>
+			img{height: 200px; width: 200px; border: 2px solid black;}
+
+		</style>
+		Image Name <input id="namebox" type="text"><br><br>
+		<img id="myimg"> <label id="UpProgress"></label>
+
+		<button id="select">Select Image</button>
+		<!-- <button id="upload">Upload Image</button> -->
+		<button id="retrieve">Retrieve Image</button>
+
+		<!-- FIREBASE LIBRARIES -->
+		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script> 
+		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-storage.js"></script> 
+
+		<script id="MainScript">
+
+			// -- VARIABLES --
+
+			var ImgName, ImgUrl;
+			var files = [];
+			var reader;
+
+			// --CONFIGURATION--
+
+			var firebaseConfig = 
+			{
+				apiKey: "AIzaSyAdOQ-Rk1Gm5hlVL2Yjz5tR72KdnfITSBQ",
+				authDomain: "hacksc-pollen-82499.firebaseapp.com",
+				projectId: "hacksc-pollen-82499",
+				storageBucket: "hacksc-pollen-82499.appspot.com",
+				messagingSenderId: "607618457140",
+				appId: "1:607618457140:web:59a7e27dabf5c07499b461",
+				measurementId: "G-P9MSVE83G9"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+
+
+			
+			document.getElementById("select").onclick = function(e)
+			{
+
+				// ------------------------------- SELECTION PROCESS -------------------------------
+				var input = document.createElement('input');
+				input.type='file';
+
+				input.onchange = e => {
+					files = e.target.files;
+					reader = new FileReader();
+					reader.onload = function(){
+						document.getElementById("myimg").src = reader.result;	// displays new image in image box
+					}
+					reader.readAsDataURL(files[0]); // assign image link to source
+
+				}
+				input.click();
+
+				// ------------------------------- UPLOAD PICTURE TO FIREBASE STORAGE -------------------------------
+
+				ImgName = document.getElementById('namebox').value;
+
+				// upload image at files[0] and image is saved as ImgName.png
+				var uploadTask = firebase.storage().ref('Images/' + ImgName + ".png").put(files[0]);
+
+
+				// shows progress of upload
+				// uploadTask.on('state_changed', function(snapshot){
+
+				// 	// calculate progress of upload
+				// 	var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+				// 	// document.getElementById('UpProgress').innerHTML = 'Upload progress: ' + progress + '%';
+				// },
+				
+				// error handling
+				// function(error){
+				// 	alert('error saving image');
+				// },
+
+				// retrieve link from firebase storage and save to database
+				// function()
+				// {
+
+					uploadTask.snapshot.ref.getDownloadURL().then(function(url){
+						ImgUrl = url;
+						console.log("Image URL: " , ImgUrl);
+
+						// save file to firebase
+						firebase.database().ref('Pictures/' + ImgName).set({
+							Name: ImgName,
+							Link: ImgUrl
+						});
+						// alert('image added successfully!');
+					//}
+				// );	
+				});
+
+			}
+
+			// display 3 recent pics
+			// function picture(){ 
+			// var pic = "http://img.tesco.com/Groceries/pi/118/5000175411118/IDShot_90x90.jpg"
+			// document.getElementById('bigpic').style.display='block';
+			// }
+
+
+
+
+			// ------------------------------- RETRIEVAL PROCESS -------------------------------
+			
+			
+			
+			document.getElementById("retrieve").onclick = function()
+			{
+				ImgName = document.getElementById("namebox").value;
+				console.log(ImgName);
+				firebase.database().ref('Pictures/'+ImgName).on('value', function(snapshot)
+				{
+					console.log(snapshot.val());
+					document.getElementById("myimg").src = snapshot.val().Link;
+				});
+			}		
+
+
+
+		</script>
+
+
+		<!-- <img id="bigpic" src="bigpic" />
+
+		<button onclick="picture()">Enlarge</button> -->
+
+
+
+
+	</body>
+</html>
+
+
