@@ -71,7 +71,7 @@
                 }
             }
         }
-        displayRating()
+        // displayRating()
 
         function displayRating(){
             firebase.database().ref('/').on('value', function(snapshot){
@@ -82,40 +82,30 @@
                 document.querySelector("#tjBusy").innerHTML = busyR;
             })
         }
+
+        displayRating2()
+
+        function displayRating2(){
+            firebase.database().ref('/').on('value', function(snapshot){
+                var storename = document.querySelector("#tjname").innerHTML;
+                var covidR = snapshot.val()[storename+" Average Covid Rating"]["covidAvr"]
+                var busyR = snapshot.val()[storename+" Average Busy Rating"]["busyAvr"]
+                // console.log("getting value covidr", covidR, "busyr",busyR);
+                var covidPercentage = (100 * covidR) / 5;
+                var safePercentage = (100 * busyR) / 5;
+                console.log("covidpercentage",covidPercentage)
+                // console.log("safepercentage",safePercentage)
+
+                var covidStar = document.querySelector("#covid-star");
+                covidStar.style.width = covidPercentage + "%";
+                // document.querySelector("#covidNum").innerHTML = covidR
+
+                var busyStar = document.querySelector("#busy-star");
+                busyStar.style.width = safePercentage + "%";
+                // document.querySelector("#busyNum").innerHTML = busyR
+            })
+        }
     </script>
-
-
-
- <div class = "store">
-    <h3 class="StoreName">Trader Joe's</h3>
-    <div class="storerow">
-        <div class="storeImages">
-            <img style = "padding: 10px" src="Images/traderJoes.jpg" width="250" height="250" float = "left" >
-        </div>
-
-        <div class = "section">
-          <ul>
-              <li class="info">Grocery Store</li>
-              <li class="info"><a href="https://www.google.com/maps/dir//Trader+Joe's,+3131+S+Hoover+St+Ste+1920,+Los+Angeles,+CA+90089/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x80c2c7e590c9b1d3:0x29839d05bb0c4e08?sa=X&ved=2ahUKEwjVrYXU-vjuAhVjdc0KHSA5BGQQ48ADMAB6BAgEECs">0.2 Miles Away</a></li>
-              <li class="info">Current Covid Rating:
-                  <div class="ratings">
-                    <div class="empty-stars"></div>
-                    <div class="full-stars" style="width:70%"></div>
-                    <span id="tjCovid"></span>
-                  </div></li>
-                  
-              <li class="info">Current Busy Rating:
-                  <div class="ratings">
-                    <div class="empty-stars"></div>
-                    <div class="full-stars" style="width:100%"></div>
-                    <span id="tjBusy"></span>
-                  </div></li>
-                  
-              <li class="info"><a href="https://www.google.com/maps/dir//Trader+Joe's,+3131+S+Hoover+St+Ste+1920,+Los+Angeles,+CA+90089/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x80c2c7e590c9b1d3:0x29839d05bb0c4e08?sa=X&ved=2ahUKEwjVrYXU-vjuAhVjdc0KHSA5BGQQ48ADMAB6BAgEECs">See Details</a></li>
-          </ul>
-        </div><!--section-->
-    </div><!--row-->
-</div><!--store-->
     
     </div>
     <div class = "store">
@@ -144,6 +134,37 @@
            </div><!--section-->
        </div><!--row-->
    </div><!--store-->
+
+    <div class = "store">
+        <h3 class="StoreName" id="tjname">Trader Joe's</h3>
+        <div class="storerow">
+            <div class="storeImages">
+                <img style = "padding: 10px" src="Images/traderJoes.jpg" width="250" height="250" float = "left" >
+            </div>
+
+            <div class = "section">
+            <ul>
+                <li class="info">Grocery Store</li>
+                <li class="info"><a href="https://www.google.com/maps/place/Trader+Joe's/@34.0262062,-118.3474125,12z/data=!4m8!1m2!2m1!1strader+joe's!3m4!1s0x80c2c7e590c9b1d3:0x29839d05bb0c4e08!8m2!3d34.026076!4d-118.2846645">0.2 Miles Away</a></li>
+                <li class="info">Current Covid Rating:
+                    <div class="ratings">
+                        <div class="empty-stars"></div>
+                        <div class="full-stars" id="covid-star"></div>
+                        <span id="covidNum"></span>
+                    </div></li>
+                    
+                <li class="info">Current Busy Rating:
+                    <div class="ratings">
+                        <div class="empty-stars"></div>
+                        <div class="full-stars" id="busy-star"></div>
+                        <span id="tjBusy"></span>
+                    </div></li>
+                    
+                <li class="info"><a href="traderjoe-page.html">See Details</a></li>
+            </ul>
+            </div><!--section-->
+        </div><!--row-->
+    </div><!--store-->
     
     <div class = "store">
        <h3 class="StoreName">Thai By Trio</h3>
