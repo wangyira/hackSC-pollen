@@ -36,7 +36,6 @@ div#wrapperHeader div#header img {
   height: 100px;
   width: 100%;
   font-size: 10px;
-  z-index:0;
   text-align: center;
   padding-top: 200px;
   padding-bottom: 50px;
@@ -66,7 +65,7 @@ div#wrapperHeader div#header img {
 .header #myInput{
     text-align: center;
     font-size: 30px;
-    z-index: 20;
+    z-index: 200;
     width: 300px;
     margin:0 auto;
     margin-right: auto;
