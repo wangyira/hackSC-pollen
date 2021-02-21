@@ -43,10 +43,7 @@
 			// Initialize Firebase
 			firebase.initializeApp(firebaseConfig);
 
-
-			
-			document.getElementById("select").onclick = function(e)
-			{
+			document.getElementById("select").onclick = function(e){
 
 				// ------------------------------- SELECTION PROCESS -------------------------------
 				var input = document.createElement('input');
@@ -60,49 +57,44 @@
 					}
 					reader.readAsDataURL(files[0]); // assign image link to source
 
+					// ------------------------------- UPLOAD PICTURE TO FIREBASE STORAGE -------------------------------
+					ImgName = document.getElementById('namebox').value;
+
+					// upload image at files[0] and image is saved as ImgName.png
+					var uploadTask = firebase.storage().ref('Images/' + ImgName + ".png").put(files[0]);
+
+					// shows progress of upload
+					uploadTask.on('state_changed', function(snapshot){
+
+						// calculate progress of upload
+						// var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+						// document.getElementById('UpProgress').innerHTML = 'Upload progress: ' + progress + '%';
+					},
+					
+					//error handling
+					function(error){
+						alert('error saving image');
+					},
+
+					// retrieve link from firebase storage and save to database
+					function()
+					{
+						uploadTask.snapshot.ref.getDownloadURL().then(function(url){
+							ImgUrl = url;
+							//console.log("Image URL: " , ImgUrl);
+
+							// save file to firebase
+							firebase.database().ref('Pictures/' + ImgName).set({
+								Name: ImgName,
+								Link: ImgUrl
+							});
+							alert('image added successfully :)');
+						});	
+					});
 				}
 				input.click();
-
-				// ------------------------------- UPLOAD PICTURE TO FIREBASE STORAGE -------------------------------
-
-				ImgName = document.getElementById('namebox').value;
-
-				// upload image at files[0] and image is saved as ImgName.png
-				var uploadTask = firebase.storage().ref('Images/' + ImgName + ".png").put(files[0]);
-
-
-				// shows progress of upload
-				// uploadTask.on('state_changed', function(snapshot){
-
-				// 	// calculate progress of upload
-				// 	var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				// 	// document.getElementById('UpProgress').innerHTML = 'Upload progress: ' + progress + '%';
-				// },
-				
-				// error handling
-				// function(error){
-				// 	alert('error saving image');
-				// },
-
-				// retrieve link from firebase storage and save to database
-				// function()
-				// {
-
-					uploadTask.snapshot.ref.getDownloadURL().then(function(url){
-						ImgUrl = url;
-						console.log("Image URL: " , ImgUrl);
-
-						// save file to firebase
-						firebase.database().ref('Pictures/' + ImgName).set({
-							Name: ImgName,
-							Link: ImgUrl
-						});
-						// alert('image added successfully!');
-					//}
-				// );	
-				});
-
 			}
+			// select image ends
 
 			// display 3 recent pics
 			// function picture(){ 
@@ -110,12 +102,7 @@
 			// document.getElementById('bigpic').style.display='block';
 			// }
 
-
-
-
 			// ------------------------------- RETRIEVAL PROCESS -------------------------------
-			
-			
 			
 			document.getElementById("retrieve").onclick = function()
 			{
