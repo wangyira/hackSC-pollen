@@ -53,16 +53,15 @@
                 firebase.database().ref('/').on('value', function(snapshot){
                     var covidR = snapshot.val()[storename+" Average Covid Rating"]["covidAvr"]
                     var busyR = snapshot.val()[storename+" Average Busy Rating"]["busyAvr"]
-                    console.log("getting value covidr", covidR, "busyr",busyR);
+                    // console.log("getting value covidr", covidR, "busyr",busyR);
                     var covidPercentage = (100 * covidR) / 5;
                     var safePercentage = (100 * busyR) / 5;
-                    console.log("covidpercentage",covidPercentage)
-                    console.log("safepercentage",safePercentage)
+                    // console.log("covidpercentage",covidPercentage)
+                    // console.log("safepercentage",safePercentage)
 
                     var covidStar = document.querySelector("#covid-star");
                     covidStar.style.width = covidPercentage + "%";
                     document.querySelector("#covidNum").innerHTML = covidR
-
 
                     var busyStar = document.querySelector("#busy-star");
                     busyStar.style.width = safePercentage + "%";
@@ -73,7 +72,7 @@
             function covidRating(e) {
                 event.preventDefault();
                 covidR = document.getElementById("covid-slider").value;
-                console.log("covid on slider",covidR);
+                // console.log("covid on slider",covidR);
                 firebase.database().ref(storename+" covid").push({
                     covidRating: covidR,
                 });
@@ -82,21 +81,21 @@
                 var totalRating = 0;
                 var numberOfRating = 0;
                 firebase.database().ref(storename+" covid").on('value',function(snapshot){
-                    console.log("snap",snapshot.val())
+                    // console.log("snap",snapshot.val())
                     snapshot.forEach(function(childSnapshot){
                         var childKey = childSnapshot.key;
                         var childData = childSnapshot.val();
-                        console.log("childKey",childKey)
-                        console.log("childData",childData["covidRating"])
-                        console.log("-----")
+                        // console.log("childKey",childKey)
+                        // console.log("childData",childData["covidRating"])
+                        // console.log("-----")
                         totalRating += parseInt(childData["covidRating"])
                         numberOfRating += 1
                     })
                 })
-                console.log("total",totalRating,"numberOfRating",numberOfRating)
+                // console.log("total",totalRating,"numberOfRating",numberOfRating)
                 
                 var avrRating = (totalRating / numberOfRating).toFixed(2);
-                console.log("average", avrRating )
+                // console.log("average", avrRating )
                 
                 firebase.database().ref(storename+" Average Covid Rating").set({
                     covidAvr: avrRating,
@@ -106,7 +105,7 @@
             function busyRating(event) {
                 event.preventDefault();
                 busyR = document.getElementById("line-slider").value;
-                console.log("busy on slider",busyR);
+                // console.log("busy on slider",busyR);
                 firebase.database().ref(storename+" busy").push({
                     busyRating: busyR,
                 });
@@ -115,21 +114,21 @@
                 var totalRating = 0;
                 var numberOfRating = 0;
                 firebase.database().ref(storename+" busy").on('value',function(snapshot){
-                    console.log("snap",snapshot.val())
+                    // console.log("snap",snapshot.val())
                     snapshot.forEach(function(childSnapshot){
                         var childKey = childSnapshot.key;
                         var childData = childSnapshot.val();
-                        console.log("childKey",childKey)
-                        console.log("childData",childData["busyRating"])
-                        console.log("-----")
+                        // console.log("childKey",childKey)
+                        // console.log("childData",childData["busyRating"])
+                        // console.log("-----")
                         totalRating += parseInt(childData["busyRating"])
                         numberOfRating += 1
                     })
                 })
-                console.log("total",totalRating,"numberOfRating",numberOfRating)
+                // console.log("total",totalRating,"numberOfRating",numberOfRating)
                 
                 var avrRating = (totalRating / numberOfRating).toFixed(2);
-                console.log("average", avrRating )
+                // console.log("average", avrRating )
                 
                 // might need to use update instead of set
                 firebase.database().ref(storename+" Average Busy Rating").set({ 
@@ -159,7 +158,7 @@
         </div>
 
         <div class="rating-section">
-            <h3 class="user-ratings">Busyness Rating: 
+            <h3 class="user-ratings">Busy-ness Rating: 
                 <div class="ratings">
                     <div class="empty-stars"></div>
                     <div id="busy-star" class="full-stars"></div>
@@ -167,7 +166,7 @@
                 <span id="busyNum"></span>
             </h3>
             <hr>
-            <label for="line-slider" class="input-description">How busy was the place? (5 stars for busy)?</label>
+            <label for="line-slider" class="input-description">How busy was the place? (5 stars for busy)</label>
             <br>
                 <div class="slider">
                     <form onsubmit="busyRating(event)">
@@ -181,7 +180,8 @@
         <div class="gallery">
             <img src="Images\rest1im1.jpg" class="gallery-highlight">
             <div class="preview">
-                <img src="Images\rest1im2.jpg" class="active">
+                <img src="Images\rest1im1.jpg" class="active">
+                <img src="Images\rest1im2.jpg">
                 <img src="Images\rest1im3.jpeg">
             </div>
         </div>
