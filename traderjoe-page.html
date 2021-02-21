@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Business Page</title>
+<link rel="stylesheet" href="css\style.css">
+<script src="https://kit.fontawesome.com/15d341663e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class = "navigation">
+            <ul>
+                <li>Home</li>
+                <li>About Us</li>
+            </ul>
+        </div>
+    </header>
+    <div class="banner">
+        <h1 id="banner-text">Trader Joe's</h1>
+    </div>
+    <article>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-storage.js"></script> 
+
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            var firebaseConfig = {
+                apiKey: "AIzaSyAdOQ-Rk1Gm5hlVL2Yjz5tR72KdnfITSBQ",
+                authDomain: "hacksc-pollen-82499.firebaseapp.com",
+                projectId: "hacksc-pollen-82499",
+                storageBucket: "hacksc-pollen-82499.appspot.com",
+                messagingSenderId: "607618457140",
+                appId: "1:607618457140:web:59a7e27dabf5c07499b461",
+                measurementId: "G-P9MSVE83G9"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            // firebase.analytics();
+
+            var storename = document.querySelector("#banner-text").innerHTML
+            var covidR, safetyR;
+
+            displayRating()
+
+            function displayRating(){
+                firebase.database().ref('/').on('value', function(snapshot){
+                    var covidR = snapshot.val()[storename+" Average Covid Rating"]["covidAvr"]
+                    var busyR = snapshot.val()[storename+" Average Busy Rating"]["busyAvr"]
+                    console.log("getting value covidr", covidR, "busyr",busyR);
+                    var covidPercentage = (100 * covidR) / 5;
+                    var safePercentage = (100 * busyR) / 5;
+                    console.log("covidpercentage",covidPercentage)
+                    console.log("safepercentage",safePercentage)
+
+                    var covidStar = document.querySelector("#covid-star");
+                    covidStar.style.width = covidPercentage + "%";
+                    document.querySelector("#covidNum").innerHTML = covidR
+
+
+                    var busyStar = document.querySelector("#busy-star");
+                    busyStar.style.width = safePercentage + "%";
+                    document.querySelector("#busyNum").innerHTML = busyR
+                })
+            }
+
+            function covidRating(e) {
+                event.preventDefault();
+                covidR = document.getElementById("covid-slider").value;
+                console.log("covid on slider",covidR);
+                firebase.database().ref(storename+" covid").push({
+                    covidRating: covidR,
+                });
+                console.log("covid sent")
+
+                var totalRating = 0;
+                var numberOfRating = 0;
+                firebase.database().ref(storename+" covid").on('value',function(snapshot){
+                    console.log("snap",snapshot.val())
+                    snapshot.forEach(function(childSnapshot){
+                        var childKey = childSnapshot.key;
+                        var childData = childSnapshot.val();
+                        console.log("childKey",childKey)
+                        console.log("childData",childData["covidRating"])
+                        console.log("-----")
+                        totalRating += parseInt(childData["covidRating"])
+                        numberOfRating += 1
+                    })
+                })
+                console.log("total",totalRating,"numberOfRating",numberOfRating)
+                
+                var avrRating = (totalRating / numberOfRating).toFixed(2);
+                console.log("average", avrRating )
+                
+                firebase.database().ref(storename+" Average Covid Rating").set({
+                    covidAvr: avrRating,
+                });
+            }
+
+            function busyRating(event) {
+                event.preventDefault();
+                busyR = document.getElementById("line-slider").value;
+                console.log("busy on slider",busyR);
+                firebase.database().ref(storename+" busy").push({
+                    busyRating: busyR,
+                });
+                console.log("busy sent")
+
+                var totalRating = 0;
+                var numberOfRating = 0;
+                firebase.database().ref(storename+" busy").on('value',function(snapshot){
+                    console.log("snap",snapshot.val())
+                    snapshot.forEach(function(childSnapshot){
+                        var childKey = childSnapshot.key;
+                        var childData = childSnapshot.val();
+                        console.log("childKey",childKey)
+                        console.log("childData",childData["busyRating"])
+                        console.log("-----")
+                        totalRating += parseInt(childData["busyRating"])
+                        numberOfRating += 1
+                    })
+                })
+                console.log("total",totalRating,"numberOfRating",numberOfRating)
+                
+                var avrRating = (totalRating / numberOfRating).toFixed(2);
+                console.log("average", avrRating )
+                
+                // might need to use update instead of set
+                firebase.database().ref(storename+" Average Busy Rating").set({ 
+                    busyAvr: avrRating,
+                });
+            }
+        </script>
+
+        <div class="rating-section">
+            <h3 class="user-ratings">Covid Safety Rating: 
+                <div class="ratings">
+                    <div class="empty-stars"></div>
+                    <div id="covid-star" class="full-stars"></div>
+                </div>
+                <span id="covidNum"></span>
+            </h3>
+            <hr>
+            <label for="covid-slider" class="input-description">How was your covid safety experience?</label>
+            <br>
+                <div class="slider">
+                    <form onsubmit="covidRating(event)">
+                        <input type="range" min="1" max="5" step="1"
+                        id="covid-slider">
+                        <button class="button" type="submit">Rate!</button>
+                    </form>
+                </div>
+        </div>
+
+        <div class="rating-section">
+            <h3 class="user-ratings">Busyness Rating: 
+                <div class="ratings">
+                    <div class="empty-stars"></div>
+                    <div id="busy-star" class="full-stars"></div>
+                </div>
+                <span id="busyNum"></span>
+            </h3>
+            <hr>
+            <label for="line-slider" class="input-description">How busy was the place? (5 stars for busy)?</label>
+            <br>
+                <div class="slider">
+                    <form onsubmit="busyRating(event)">
+                        <input type="range" min="1" max="5" step="1"
+                        id="line-slider">
+                        <button class="button" type="submit">Rate!</button>
+                    </form>
+                </div>
+        </div>
+
+        <div class="gallery">
+            <img src="Images\rest1im1.jpg" class="gallery-highlight">
+            <div class="preview">
+                <img src="Images\rest1im2.jpg" class="active">
+                <img src="Images\rest1im3.jpeg">
+            </div>
+        </div>
+    </article>
+</body>
+</html>
+<script src="scripting.js"></script>

@@ -16,10 +16,3 @@ function imageGallery() {
 }
 
 imageGallery();
-
-function sConsole(event) {
-    event.preventDefault();
-    var data = document.getElementById("covid-slider");
-    console.log(data.value);
-    
-  }

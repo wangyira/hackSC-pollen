@@ -95,13 +95,13 @@ h3 {
     font-size: 25px;
 }
 
-.button {
+button {
     -webkit-appearance: none;
     color: white;
     background-color: #9BC1BC;
-    height: 32px;
-    width: 10vw;
-    font-size: 25px;
+    height: 60px;
+    width: 15vw;
+    font-size: 50px;
     border: solid 1px white;
     border-radius: 30px;
     margin-top: 1.5vh;
@@ -121,8 +121,6 @@ h3 {
     opacity: 1;
     -webkit-transition: .2s;
     transition: opacity .2s;
-
-    
 }
 
 #covid-slider::-webkit-slider-thumb {
@@ -143,8 +141,6 @@ h3 {
     opacity: 1;
     -webkit-transition: .2s;
     transition: opacity .2s;
-
-    
 }
 
 #line-slider::-webkit-slider-thumb {
