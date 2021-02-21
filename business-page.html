@@ -20,23 +20,41 @@
     <article>
         <!--C:\Users\maxim\hackSC-pollen\Business Page\Images\Nightshade.jpg -->
         <div class="rating-section">
-            <h3>Covid Safety Rating: 
-                <i id="rating" class="fas fa-circle"></i>
-                <i id="rating" class="fas fa-circle"></i>
-                <i id="rating" class="fas fa-circle"></i>
-                <i id="rating" class="far fa-circle"></i>
-                <i id="rating" class="far fa-circle"></i>
+            <h3 class="user-ratings">Covid Safety Rating: 
+                <div class="ratings">
+                    <div class="empty-stars"></div>
+                    <div class="full-stars" style="width:70%"></div>
+                </div>
             </h3>
+            <hr>
+            <label for="covid-slider" class="input-description">How was your covid safety experience?</label>
+            <br>
+                <div class="slider">
+                    <form onsubmit="sConsole(event)">
+                        <input type="range" min="1" max="5" step="1"
+                        id="covid-slider">
+                        <button class="button" type="submit">Rate!</button>
+                    </form>
+                </div>
         </div>
 
         <div class="rating-section">
-            <h3>Line Length Rating: 
-                <i id="rating" class="fas fa-circle"></i>
-                <i id="rating" class="fas fa-circle"></i>
-                <i id="rating" class="fas fa-circle"></i>
-                <i id="rating" class="fas fa-circle"></i>
-                <i id="rating" class="far fa-circle"></i>
+            <h3 class="user-ratings">Line Length Rating: 
+                <div class="ratings">
+                    <div class="empty-stars"></div>
+                    <div class="full-stars" style="width:70%"></div>
+                </div>
             </h3>
+            <hr>
+            <label for="line-slider" class="input-description">How was the line-wait (5 Stars for Fast)?</label>
+            <br>
+                <div class="slider">
+                    <form onsubmit="sConsole(event)">
+                        <input type="range" min="1" max="5" step="1"
+                        id="line-slider">
+                        <button class="button" type="submit">Rate!</button>
+                    </form>
+                </div>
         </div>
 
         <!--<div class="customer-review-header">
