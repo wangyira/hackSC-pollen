@@ -1,104 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*Total Site Background */
 .backImage{
-    
     background-color: white;
+    margin-bottom: 0px;
 }
-h3 {
+/*Store Names */ h3 {
     color: black;
     font-family: Helvetica;
+    font-size: 35px;
 }
-.lowercase{
-    text-transform: lowercase;
-    color: blue;
-    text-align: left;
-    font-family: Helvetica;
-    
+
+/*All store info (ratings, distance, type) */
+.storerow{
+    display: flex;
 }
-h4{
- color:blue;
- text-align: left;
- text-transform: lowercase;
- font-family: Helvetica;
+.storeImages{
+/*    float: left;*/
+    flex: 25%;
 }
-.info{
-    list-style-type: none;
-    color: black;
-    background-color: ivory;
+.section{
+/*    float: left;*/
+    width:75%;
 }
+.info
+    {
+    border: solid 2px black;
+    width:600px;
+    height:50px;
+    border-radius:250px;
+    font-size:40px;
+    color:#fff;
+    line-height:50px;
+    margin-left: 30px;
+    text-align:center;
+    background:#ED6A5A;
+    display: inline-block;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+
+
+.search{
+    background-color: black;
+}
+
+/*Each store section */
 .store{
-    background-color: ivory;
-    border-radius: 100px;
+    background-color: #E6EBE0;
+    border-radius: 6px;
+    margin-bottom: 15px;
 }
-h2{
-    margin-top: -60px;
-    color: yellow;
+
+p{
+    
 }
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 8px;
-  margin-bottom: -60px;
-}
-li{
-    color: blue;
-    font-family: Helvetica;
-}
+
+/*Store images */
 img{
-
-    margin-top:-5px;
-    
-}
-hr {
-    height: 4px;
-    /* Set the hr color */
-    color: #333; /* old IE */
-    background-color: #333; /* Modern Browsers */
-}
-.head{
-    border: none;
-    height: 1px;
-    /* Set the hr color */
-    color: #333;
-    
-}
-#rating-good{
-    color: green;
-}
-#rating-okay{
-    color:orange;
-}
-#rating-bad{
-    color: red;
+    margin-top:8px;
 }
 
+/*Header */
 .header {
   padding: 0px;
   text-align: left;
-  background: powderblue;
-  color: blue;
+  background: #36C9C6;
+  color: #36C9C6;
   font-size: 10px;
-  margin-top: -80px;
-  margin-right: -70px;
-  margin-left: -70px;
-  
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+  margin-bottom: 30px;
 }
+
+/*Header Main Text */
 .header .headText {
     margin-bottom: 300 px;
     text-align: center;
-    color: yellow;
+    color: #F4F1BB;
     font-size:130px
 }
+
+/*Header sub Text */
 .header .headLink {
-    font-size: 15px;
+    font-size: 40px;
     color:white;
-    margin-bottom: -60px
+    margin-bottom: -90px
     
 }
+
+/*Search bar text*/
 #myInput{
     align: center;
     font-size: 30px;
-
 }
+
+/*body */
 body {
   font-family: Helvetica;
+}
+
+/*STARS */
+.ratings {
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+  color: #b1b1b1;
+  overflow: hidden;
+}
+
+.full-stars{
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #F4F1BB;
+}
+
+.empty-stars:before,
+.full-stars:before {
+  content: "\2605\2605\2605\2605\2605";
+  font-size: 20pt;
+}
+
+.empty-stars:before {
+  -webkit-text-stroke: 1px #E6EBE0;
+}
+
+.full-stars:before {
+  -webkit-text-stroke: 1px orange;
+}
+
+/* Webkit-text-stroke is not supported on firefox or IE */
+/* Firefox */
+@-moz-document url-prefix() {
+  .full-stars{
+    color: #ECBE24;
+  }
+}
+/* IE */
+<!--[if IE]>
+  .full-stars{
+    color: #ECBE24;
+  }
+<![endif]-->
+
+/*  Redish: #ED6A5A Pale yellow: #F4F1BB Blue #9BC1BC  Light Grey#E6EBE0 Bright blue #36C9C6 */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }
