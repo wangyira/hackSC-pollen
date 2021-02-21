@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="shortcut icon" href="placeLogo.ico" />
+    <!-- <link rel="shortcut icon" href="placeLogo.ico" /> -->
     <script src="https://kit.fontawesome.com/15d341663e.js" crossorigin="anonymous"></script>
     <head>
     <style>
@@ -26,31 +26,66 @@
     -->
 
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-storage.js"></script> 
 
     <script>
-    function myFunction() {
-        var input, filter, ul, li, a, i, txtValue, j;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("bod");
-        li = document.getElementsByTagName("h3");
-        di = document.getElementsByClassName("store")
-        console.log(input,filter)
-        console.log(li,li.outerText)
-        for (i = 0; i < li.length; i++) {
-            a = li[i].innerText.trim();
-            console.log(a)
-            // txtValue = a.textContent || a.innerText;
-            if (a.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-                di[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-                di[i].style.display = "none"
+        // Your web app's Firebase configuration
+		// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+		var firebaseConfig = {
+			apiKey: "AIzaSyAdOQ-Rk1Gm5hlVL2Yjz5tR72KdnfITSBQ",
+			authDomain: "hacksc-pollen-82499.firebaseapp.com",
+			projectId: "hacksc-pollen-82499",
+			storageBucket: "hacksc-pollen-82499.appspot.com",
+			messagingSenderId: "607618457140",
+			appId: "1:607618457140:web:59a7e27dabf5c07499b461",
+			measurementId: "G-P9MSVE83G9"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		// firebase.analytics();
+
+        function myFunction() {
+            var input, filter, ul, li, a, i, txtValue, j;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("bod");
+            li = document.getElementsByTagName("h3");
+            di = document.getElementsByClassName("store")
+            console.log(input,filter)
+            console.log(li,li.outerText)
+            for (i = 0; i < li.length; i++) {
+                a = li[i].innerText.trim();
+                console.log(a)
+                // txtValue = a.textContent || a.innerText;
+                if (a.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                    di[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                    di[i].style.display = "none"
+                }
             }
         }
-    }
+
+        displayRating()
+
+        function displayRating(){
+            firebase.database().ref('/').on('value', function(snapshot){
+                var covidR = snapshot.val()["Trader Joe's"]["covidRating"]
+                var busyR = snapshot.val()["Trader Joe's"]["busyRating"]
+                console.log("covidr", covidR, "busyr",busyR);
+                document.querySelector("#tjCovid").innerHTML = covidR;
+                document.querySelector("#tjBusy").innerHTML = busyR;
+            })
+        }
     </script>
 
 
@@ -63,17 +98,21 @@
       <li class="info">Grocery Store</li>
       <li class="info"><a href="https://www.google.com/maps/dir//Trader+Joe's,+3131+S+Hoover+St+Ste+1920,+Los+Angeles,+CA+90089/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x80c2c7e590c9b1d3:0x29839d05bb0c4e08?sa=X&ved=2ahUKEwjVrYXU-vjuAhVjdc0KHSA5BGQQ48ADMAB6BAgEECs">0.2 Miles Away</a></li>
       <li class="info">Current Covid Rating:
-            <i id="rating-okay" class="fas fa-circle"></i>
+        <span id="tjCovid"></span>
+            <!-- <i id="rating-okay" class="fas fa-circle"></i>
             <i id="rating-okay" class="fas fa-circle"></i>
             <i id="rating-okay" class="fas fa-circle"></i>
             <i id="rating-okay" class="far fa-circle"></i>
-            <i id="rating-okay" class="far fa-circle"></i></li>
+            <i id="rating-okay" class="far fa-circle"></i> -->
+      </li>
       <li class="info">Current Busy Rating:
+        <span id="tjBusy"></span>
+          <!-- <i id="rating-bad" class="fas fa-circle"></i>
           <i id="rating-bad" class="fas fa-circle"></i>
           <i id="rating-bad" class="fas fa-circle"></i>
           <i id="rating-bad" class="fas fa-circle"></i>
-          <i id="rating-bad" class="fas fa-circle"></i>
-          <i id="rating-bad" class="fas fa-circle"></i> </li>
+          <i id="rating-bad" class="fas fa-circle"></i>  -->
+      </li>
       <li class="info"><a href="https://www.google.com/maps/dir//Trader+Joe's,+3131+S+Hoover+St+Ste+1920,+Los+Angeles,+CA+90089/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x80c2c7e590c9b1d3:0x29839d05bb0c4e08?sa=X&ved=2ahUKEwjVrYXU-vjuAhVjdc0KHSA5BGQQ48ADMAB6BAgEECs">See Details</a></li>
     </ul>
     </div>
