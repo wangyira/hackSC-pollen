@@ -18,6 +18,66 @@
         <h1 id="banner-text">Trader Joe's</h1>
     </div>
     <article>
+        
+        <div class="rating-section">
+            <h3 class="user-ratings">Covid Safety Rating: 
+                <div class="ratings">
+                    <div class="empty-stars"></div>
+                    <div id="covid-star" class="full-stars"></div>
+                </div>
+                <span id="covidNum"></span>
+            </h3>
+            <hr>
+            <label for="covid-slider" class="input-description">How was your covid safety experience?</label>
+            <br>
+                <div class="slider">
+                    <form onsubmit="covidRating(event)">
+                        <input type="range" min="1" max="5" step="1"
+                        id="covid-slider">
+                        <button class="button" type="submit">Rate!</button>
+                    </form>
+                </div>
+        </div>
+
+        <div class="rating-section">
+            <h3 class="user-ratings">Busy-ness Rating: 
+                <div class="ratings">
+                    <div class="empty-stars"></div>
+                    <div id="busy-star" class="full-stars"></div>
+                </div>
+                <span id="busyNum"></span>
+            </h3>
+            <hr>
+            <label for="line-slider" class="input-description">How busy was the place? (5 stars for busy)</label>
+            <br>
+                <div class="slider">
+                    <form onsubmit="busyRating(event)">
+                        <input type="range" min="1" max="5" step="1"
+                        id="line-slider">
+                        <button class="button" type="submit">Rate!</button>
+                    </form>
+                </div>
+        </div>
+
+
+        <!-- Image Name <input id="namebox" type="text"><br><br> -->
+        <!-- <img id="myimg"> <label id="UpProgress"></label> -->
+
+        <button id="uploadimage">Select Image</button>
+        <!-- <button id="upload">Upload Image</button> -->
+        <!-- <button id="retrieve">Retrieve Image</button> -->
+        
+        <div class="gallery">
+            <img src="Images\tj1.jpeg" id="bigim" class="gallery-highlight">
+            <div class="preview">
+                <img src="Images\tj1.jpeg" id="im1" class="active">
+                <img src="Images\tj2.jpeg" id="im2">
+                <img src="Images\tj3.jpeg" id="im3">
+            </div>
+        </div>
+    </article>
+
+
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
 
@@ -68,6 +128,126 @@
                     document.querySelector("#busyNum").innerHTML = busyR
                 })
             }
+
+            // -- VARIABLES --
+            var ImgName, ImgUrl;
+                var files = [];
+                var reader;
+                
+                // function hello(){
+                    
+                //     alert("Hello!!");
+
+
+                const uploadbutton = document.querySelector("#uploadimage")
+                console.log("this working",uploadbutton)
+
+                uploadbutton.onclick = function(e){
+                    console.log("I'M HERE");
+                    // ------------------------------- SELECTION PROCESS -------------------------------
+                    var input = document.createElement('input');
+                    input.type='file';
+
+                    input.onchange = e => {
+                        files = e.target.files;
+                        reader = new FileReader();
+                        reader.onload = function(){
+                            //document.getElementById("myimg").src = reader.result;	// displays new image in image box
+                        }
+                        reader.readAsDataURL(files[0]); // assign image link to source
+
+                        // ------------------------------- UPLOAD PICTURE TO FIREBASE STORAGE -------------------------------
+                        // ImgName = document.getElementById('namebox').value;
+                        
+                        // add image to array
+                        // var picsRef = firebase.database().ref('Pictures/'+ImgName);
+                        // picsRef.orderByValue().on("value", function(snapshot)
+                        // {
+                        // 	snapshot.forEach(function(data)
+                        // 	{
+                        // 		pics.push(picsRef);
+                        // 		console.log(pics[0]);
+                        // 	});
+                        // });
+
+                        // upload image at files[0] and image is saved as ImgName.png
+                        var uploadTask = firebase.storage().ref('Images/' + ".png").put(files[0]);
+
+                        uploadTask.on('state_changed', function(snapshot){
+                            // var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            // document.getElementById('UpProgress').innerHTML = 'Upload progress: ' + progress + '%';
+                        },
+                        
+                        //error handling
+                        function(error){
+                            alert('error saving image');
+                        },
+
+                        // retrieve link from firebase storage and save to database
+                        function()
+                        {
+                            uploadTask.snapshot.ref.getDownloadURL().then(function(url){
+                                ImgUrl = url;
+                                //console.log("Image URL: " , ImgUrl);
+
+                                var d = new Date();
+                                var currentTime = d.getTime();
+                                console.log(currentTime);
+
+                                // save file to firebase
+                                firebase.database().ref('TraderJoes/').push({
+                                    Name: "img"+currentTime,
+                                    Link: ImgUrl,
+                                    Time: currentTime
+                                });
+                                alert('image added successfully :)');
+                            });	
+                        });
+
+                        // ImgName = document.getElementById("namebox").value;
+                        // console.log(ImgName);
+                        firebase.database().ref('TraderJoes/').orderByChild("Time").limitToLast(3).on('value', function(snapshot)
+                        {
+                            var i = 0;
+                            var img1;
+                            var img2;
+                            var img3;
+                            
+                            snapshot.forEach(function(childSnapshot){
+                                var childKey = childSnapshot.key;
+                                var childData = childSnapshot.val();
+                                // var myID = childData["Link"];
+
+                                if(i === 0) {img1 = childData["Link"];}
+                                if(i === 1) {img2 = childData["Link"];}
+                                if(i === 2) {img3 = childData["Link"];}
+                                // if(i === 3) {break;}
+
+                                console.log("childKey",childKey);
+                                console.log("childData",childData);
+                                console.log(childData["Link"]);
+                                console.log("----------");
+
+                                i += 1;
+                            })
+                            
+                            // console.log(snapshot.val());
+                            document.getElementById("bigim").src = img1;
+                            document.getElementById("im1").src = img1;
+                            document.getElementById("im2").src = img2;
+                            document.getElementById("im3").src = img3;
+                            
+                        });
+
+
+                    }
+
+                    input.click();
+                    
+                }
+                // document.getElementById("select").addEventListener("click", hello);
+
+
 
             function covidRating(e) {
                 event.preventDefault();
@@ -134,58 +314,11 @@
                 firebase.database().ref(storename+" Average Busy Rating").set({ 
                     busyAvr: avrRating,
                 });
+
+                
             }
         </script>
 
-        <div class="rating-section">
-            <h3 class="user-ratings">Covid Safety Rating: 
-                <div class="ratings">
-                    <div class="empty-stars"></div>
-                    <div id="covid-star" class="full-stars"></div>
-                </div>
-                <span id="covidNum"></span>
-            </h3>
-            <hr>
-            <label for="covid-slider" class="input-description">How was your covid safety experience?</label>
-            <br>
-                <div class="slider">
-                    <form onsubmit="covidRating(event)">
-                        <input type="range" min="1" max="5" step="1"
-                        id="covid-slider">
-                        <button class="button" type="submit">Rate!</button>
-                    </form>
-                </div>
-        </div>
-
-        <div class="rating-section">
-            <h3 class="user-ratings">Busy-ness Rating: 
-                <div class="ratings">
-                    <div class="empty-stars"></div>
-                    <div id="busy-star" class="full-stars"></div>
-                </div>
-                <span id="busyNum"></span>
-            </h3>
-            <hr>
-            <label for="line-slider" class="input-description">How busy was the place? (5 stars for busy)</label>
-            <br>
-                <div class="slider">
-                    <form onsubmit="busyRating(event)">
-                        <input type="range" min="1" max="5" step="1"
-                        id="line-slider">
-                        <button class="button" type="submit">Rate!</button>
-                    </form>
-                </div>
-        </div>
-
-        <div class="gallery">
-            <img src="Images\rest1im1.jpg" class="gallery-highlight">
-            <div class="preview">
-                <img src="Images\rest1im1.jpg" class="active">
-                <img src="Images\rest1im2.jpg">
-                <img src="Images\rest1im3.jpeg">
-            </div>
-        </div>
-    </article>
 </body>
 </html>
 <script src="scripting.js"></script>
